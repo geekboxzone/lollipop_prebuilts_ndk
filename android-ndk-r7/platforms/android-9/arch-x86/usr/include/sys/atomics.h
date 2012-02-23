@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 The Android Open Source Project
+ * Copyright (C) 2008 The Android Open Source Project
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,29 +33,48 @@
 
 __BEGIN_DECLS
 
-static inline __attribute__((always_inline)) int
+/* Note: atomic operations that were exported by the C library didn't
+ *       provide any memory barriers, which created potential issues on
+ *       multi-core devices. We now define them as inlined calls to
+ *       GCC sync builtins, which always provide a full barrier.
+ *
+ *       NOTE: The C library still exports atomic functions by the same
+ *              name to ensure ABI stability for existing NDK machine code.
+ *
+ *       If you are an NDK developer, we encourage you to rebuild your
+ *       unmodified sources against this header as soon as possible.
+ */
+#define __ATOMIC_INLINE__ static __inline__ __attribute__((always_inline))
+
+__ATOMIC_INLINE__ int
 __atomic_cmpxchg(int old, int _new, volatile int *ptr)
 {
-  return !__sync_bool_compare_and_swap (ptr, old, _new);
+    /* We must return 0 on success */
+    return __sync_val_compare_and_swap(ptr, old, _new) != old;
 }
 
-static inline __attribute__((always_inline)) int
+__ATOMIC_INLINE__ int
 __atomic_swap(int _new, volatile int *ptr)
 {
-  return __sync_lock_test_and_set(ptr, _new);
+    int prev;
+    do {
+        prev = *ptr;
+    } while (__sync_val_compare_and_swap(ptr, prev, _new) != prev);
+    return prev;
 }
 
-static inline __attribute__((always_inline)) int
+__ATOMIC_INLINE__ int
 __atomic_dec(volatile int *ptr)
 {
   return __sync_fetch_and_sub (ptr, 1);
 }
 
-static inline __attribute__((always_inline)) int
+__ATOMIC_INLINE__ int
 __atomic_inc(volatile int *ptr)
 {
   return __sync_fetch_and_add (ptr, 1);
 }
+
 
 int __futex_wait(volatile void *ftx, int val, const struct timespec *timeout);
 int __futex_wake(volatile void *ftx, int count);
