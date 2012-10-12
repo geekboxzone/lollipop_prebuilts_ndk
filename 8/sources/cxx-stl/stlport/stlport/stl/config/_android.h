@@ -70,7 +70,9 @@
 #define _STLP_NO_UNCAUGHT_EXCEPT_SUPPORT 1
 #define _STLP_NO_UNEXPECTED_EXCEPT_SUPPORT 1
 
+#ifndef _ANDROID_NDK_BLAZE_
 // Android does have include_next but it doesn't work well in our build system.
 #undef _STLP_HAS_INCLUDE_NEXT
+#endif
 
 #endif /* __stl_config__android_h */

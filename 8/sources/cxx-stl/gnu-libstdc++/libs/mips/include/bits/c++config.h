@@ -430,7 +430,7 @@ _GLIBCXX_END_NAMESPACE
 /* #undef _GLIBCXX_HAVE_FABSL */
 
 /* Define to 1 if you have the <fenv.h> header file. */
-/* #undef _GLIBCXX_HAVE_FENV_H */
+#define _GLIBCXX_HAVE_FENV_H 1
 
 /* Define to 1 if you have the `finite' function. */
 /* #undef _GLIBCXX_HAVE_FINITE */
@@ -1055,11 +1055,11 @@ _GLIBCXX_END_NAMESPACE
 
 /* Define if C99 functions in <fenv.h> should be imported in <tr1/cfenv> in
    namespace std::tr1. */
-/* #undef _GLIBCXX_USE_C99_FENV_TR1 */
+#define _GLIBCXX_USE_C99_FENV_TR1 1
 
 /* Define if C99 functions in <inttypes.h> should be imported in
    <tr1/cinttypes> in namespace std::tr1. */
-/* #undef _GLIBCXX_USE_C99_INTTYPES_TR1 */
+#define _GLIBCXX_USE_C99_INTTYPES_TR1 1
 
 /* Define if wchar_t C99 functions in <inttypes.h> should be imported in
    <tr1/cinttypes> in namespace std::tr1. */
@@ -1075,7 +1075,7 @@ _GLIBCXX_END_NAMESPACE
 
 /* Define if C99 types in <stdint.h> should be imported in <tr1/cstdint> in
    namespace std::tr1. */
-/* #undef _GLIBCXX_USE_C99_STDINT_TR1 */
+#define _GLIBCXX_USE_C99_STDINT_TR1 1
 
 /* Defined if clock_gettime has monotonic clock support. */
 /* #undef _GLIBCXX_USE_CLOCK_MONOTONIC */
