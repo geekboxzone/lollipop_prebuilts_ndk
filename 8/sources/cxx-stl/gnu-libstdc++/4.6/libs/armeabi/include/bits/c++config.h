@@ -687,7 +687,7 @@ namespace std
 /* #undef _GLIBCXX_HAVE_LOGL */
 
 /* Define to 1 if you have the <machine/endian.h> header file. */
-/* #undef _GLIBCXX_HAVE_MACHINE_ENDIAN_H */
+#define _GLIBCXX_HAVE_MACHINE_ENDIAN_H 1
 
 /* Define to 1 if you have the <machine/param.h> header file. */
 /* #undef _GLIBCXX_HAVE_MACHINE_PARAM_H */
@@ -1117,7 +1117,7 @@ namespace std
 
 /* Define if builtin atomic operations for long long are supported on this
    host. */
-/* #undef _GLIBCXX_ATOMIC_BUILTINS_8 */
+#define _GLIBCXX_ATOMIC_BUILTINS_8 1
 
 /* Define to use concept checking code from the boost libraries. */
 /* #undef _GLIBCXX_CONCEPT_CHECKS */

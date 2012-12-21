@@ -687,7 +687,7 @@ namespace std
 /* #undef _GLIBCXX_HAVE_LOGL */
 
 /* Define to 1 if you have the <machine/endian.h> header file. */
-/* #undef _GLIBCXX_HAVE_MACHINE_ENDIAN_H */
+#define _GLIBCXX_HAVE_MACHINE_ENDIAN_H 1
 
 /* Define to 1 if you have the <machine/param.h> header file. */
 /* #undef _GLIBCXX_HAVE_MACHINE_PARAM_H */
