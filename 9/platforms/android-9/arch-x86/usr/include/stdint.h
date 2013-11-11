@@ -191,8 +191,13 @@ typedef uint64_t      uint_fast64_t;
  * intptr_t & uintptr_t
  */
 
+#ifdef __LP64__
+typedef long          intptr_t;
+typedef unsigned long uintptr_t;
+#else
 typedef int           intptr_t;
 typedef unsigned int  uintptr_t;
+#endif
 
 #ifdef __STDINT_LIMITS
 #  define INTPTR_MIN    INT32_MIN
@@ -234,11 +239,7 @@ typedef int64_t  intmax_t;
 
 /* Limits of wchar_t. */
 #ifdef __STDINT_LIMITS
-   /* Also possibly defined in <wchar.h> */
-#  ifndef WCHAR_MIN
-#    define WCHAR_MIN     INT32_MIN
-#    define WCHAR_MAX     INT32_MAX
-#  endif
+#include <sys/_wchar_limits.h>
 #endif
 
 /* Limits of wint_t. */
