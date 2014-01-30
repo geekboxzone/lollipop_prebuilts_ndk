@@ -16,14 +16,11 @@
  ***
  ****************************************************************************
  ****************************************************************************/
-#ifndef __ASM_X86_BITSPERLONG_H
-#define __ASM_X86_BITSPERLONG_H
-#ifdef __x86_64__
-#define __BITS_PER_LONG 64
+#ifndef _ASM_X86_PRCTL_H
+#define _ASM_X86_PRCTL_H
+#define ARCH_SET_GS 0x1001
+#define ARCH_SET_FS 0x1002
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
-#else
-#define __BITS_PER_LONG 32
-#endif
-#include <asm-generic/bitsperlong.h>
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define ARCH_GET_FS 0x1003
+#define ARCH_GET_GS 0x1004
 #endif
