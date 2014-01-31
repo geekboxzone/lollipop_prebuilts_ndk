@@ -16,14 +16,15 @@
  ***
  ****************************************************************************
  ****************************************************************************/
-#ifndef __ASM_X86_BITSPERLONG_H
-#define __ASM_X86_BITSPERLONG_H
-#ifdef __x86_64__
-#define __BITS_PER_LONG 64
+#ifndef _UAPI_ASM_X86_IST_H
+#define _UAPI_ASM_X86_IST_H
+#include <linux/types.h>
+struct ist_info {
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
-#else
-#define __BITS_PER_LONG 32
-#endif
-#include <asm-generic/bitsperlong.h>
+ __u32 signature;
+ __u32 command;
+ __u32 event;
+ __u32 perf_level;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+};
 #endif

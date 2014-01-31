@@ -16,14 +16,19 @@
  ***
  ****************************************************************************
  ****************************************************************************/
-#ifndef __ASM_X86_BITSPERLONG_H
-#define __ASM_X86_BITSPERLONG_H
-#ifdef __x86_64__
-#define __BITS_PER_LONG 64
+#ifndef _ASM_X86_SEMBUF_H
+#define _ASM_X86_SEMBUF_H
+struct semid64_ds {
+ struct ipc64_perm sem_perm;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
-#else
-#define __BITS_PER_LONG 32
-#endif
-#include <asm-generic/bitsperlong.h>
+ __kernel_time_t sem_otime;
+ unsigned long __unused1;
+ __kernel_time_t sem_ctime;
+ unsigned long __unused2;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+ unsigned long sem_nsems;
+ unsigned long __unused3;
+ unsigned long __unused4;
+};
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #endif

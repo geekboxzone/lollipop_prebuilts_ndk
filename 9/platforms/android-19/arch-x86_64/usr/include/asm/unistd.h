@@ -16,14 +16,16 @@
  ***
  ****************************************************************************
  ****************************************************************************/
-#ifndef __ASM_X86_BITSPERLONG_H
-#define __ASM_X86_BITSPERLONG_H
-#ifdef __x86_64__
-#define __BITS_PER_LONG 64
+#ifndef _UAPI_ASM_X86_UNISTD_H
+#define _UAPI_ASM_X86_UNISTD_H
+#define __X32_SYSCALL_BIT 0x40000000
+#ifdef __i386__
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#include <asm/unistd_32.h>
+#elif defined(__ILP32__)
+#include <asm/unistd_x32.h>
 #else
-#define __BITS_PER_LONG 32
-#endif
-#include <asm-generic/bitsperlong.h>
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#include <asm/unistd_64.h>
+#endif
 #endif

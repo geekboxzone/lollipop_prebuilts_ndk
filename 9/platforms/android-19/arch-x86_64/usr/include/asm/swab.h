@@ -16,14 +16,15 @@
  ***
  ****************************************************************************
  ****************************************************************************/
-#ifndef __ASM_X86_BITSPERLONG_H
-#define __ASM_X86_BITSPERLONG_H
-#ifdef __x86_64__
-#define __BITS_PER_LONG 64
+#ifndef _ASM_X86_SWAB_H
+#define _ASM_X86_SWAB_H
+#include <linux/types.h>
+#include <linux/compiler.h>
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define __arch_swab32 __arch_swab32
+#ifdef __i386__
 #else
-#define __BITS_PER_LONG 32
 #endif
-#include <asm-generic/bitsperlong.h>
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define __arch_swab64 __arch_swab64
 #endif

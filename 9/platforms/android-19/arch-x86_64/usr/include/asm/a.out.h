@@ -16,14 +16,24 @@
  ***
  ****************************************************************************
  ****************************************************************************/
-#ifndef __ASM_X86_BITSPERLONG_H
-#define __ASM_X86_BITSPERLONG_H
-#ifdef __x86_64__
-#define __BITS_PER_LONG 64
+#ifndef _ASM_X86_A_OUT_H
+#define _ASM_X86_A_OUT_H
+struct exec
+{
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
-#else
-#define __BITS_PER_LONG 32
-#endif
-#include <asm-generic/bitsperlong.h>
+ unsigned int a_info;
+ unsigned a_text;
+ unsigned a_data;
+ unsigned a_bss;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+ unsigned a_syms;
+ unsigned a_entry;
+ unsigned a_trsize;
+ unsigned a_drsize;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+};
+#define N_TRSIZE(a) ((a).a_trsize)
+#define N_DRSIZE(a) ((a).a_drsize)
+#define N_SYMSIZE(a) ((a).a_syms)
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #endif

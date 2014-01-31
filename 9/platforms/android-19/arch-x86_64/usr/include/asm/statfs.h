@@ -16,14 +16,9 @@
  ***
  ****************************************************************************
  ****************************************************************************/
-#ifndef __ASM_X86_BITSPERLONG_H
-#define __ASM_X86_BITSPERLONG_H
-#ifdef __x86_64__
-#define __BITS_PER_LONG 64
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
-#else
-#define __BITS_PER_LONG 32
-#endif
-#include <asm-generic/bitsperlong.h>
+#ifndef _ASM_X86_STATFS_H
+#define _ASM_X86_STATFS_H
+#define ARCH_PACK_COMPAT_STATFS64 __attribute__((packed,aligned(4)))
+#include <asm-generic/statfs.h>
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #endif
