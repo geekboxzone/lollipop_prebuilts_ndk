@@ -39,6 +39,23 @@ typedef struct { int __val[2]; } __fsid_t;
 typedef __fsid_t fsid_t;
 
 #if defined(__LP64__)
+#if defined(__mips__)
+/* 64-bit MIPS */
+struct statfs {
+  uint64_t f_type;
+  uint64_t f_bsize;
+  uint64_t f_frsize; /* Fragment size - unsupported */
+  uint64_t f_blocks;
+  uint64_t f_bfree;
+  uint64_t f_files;
+  uint64_t f_ffree;
+  uint64_t f_bavail;
+  fsid_t f_fsid;
+  uint64_t f_namelen;
+  uint64_t f_flags;
+  uint64_t f_spare[5];
+};
+#else
 struct statfs {
   uint64_t f_type;
   uint64_t f_bsize;
@@ -53,6 +70,7 @@ struct statfs {
   uint64_t f_flags;
   uint64_t f_spare[4];
 };
+#endif
 #elif defined(__mips__)
 /* 32-bit MIPS (corresponds to the kernel's statfs64 type). */
 struct statfs {
