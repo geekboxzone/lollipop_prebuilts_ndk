@@ -31,7 +31,7 @@
 #define _GLIBCXX_CXX_CONFIG_H 1
 
 // The current version of the C++ library in compressed ISO date format.
-#define __GLIBCXX__ 20130322
+#define __GLIBCXX__ 20131016
 
 // Macros for various attributes.
 //   _GLIBCXX_PURE
@@ -83,6 +83,12 @@
 #else
 # define _GLIBCXX_DEPRECATED
 #endif
+
+// Macros for ABI tag attributes.
+#ifndef _GLIBCXX_ABI_TAG_CXX11
+# define _GLIBCXX_ABI_TAG_CXX11 __attribute ((__abi_tag__ ("cxx11")))
+#endif
+
 
 #if __cplusplus
 
@@ -860,7 +866,7 @@ namespace std
 /* Define to 1 if you have the <sys/resource.h> header file. */
 #define _GLIBCXX_HAVE_SYS_RESOURCE_H 1
 
-/* Define to 1 if you have the <sys/sdt.h> header file. */
+/* Define to 1 if you have a suitable <sys/sdt.h> header file */
 /* #undef _GLIBCXX_HAVE_SYS_SDT_H */
 
 /* Define to 1 if you have the <sys/sem.h> header file. */
@@ -1251,7 +1257,7 @@ namespace std
 
 /* Define if C99 functions in <inttypes.h> should be imported in
    <tr1/cinttypes> in namespace std::tr1. */
-#define _GLIBCXX_USE_C99_INTTYPES_TR1 1
+/* #undef _GLIBCXX_USE_C99_INTTYPES_TR1 */
 
 /* Define if wchar_t C99 functions in <inttypes.h> should be imported in
    <tr1/cinttypes> in namespace std::tr1. */
@@ -1271,6 +1277,9 @@ namespace std
 
 /* Defined if clock_gettime has monotonic clock support. */
 #define _GLIBCXX_USE_CLOCK_MONOTONIC 1
+
+/* Defined if clock_gettime syscall has monotonic and realtime clock support. */
+/* #undef _GLIBCXX_USE_CLOCK_GETTIME_SYSCALL */
 
 /* Defined if clock_gettime has realtime clock support. */
 #define _GLIBCXX_USE_CLOCK_REALTIME 1

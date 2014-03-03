@@ -726,13 +726,13 @@ namespace std
 /* #undef _GLIBCXX_HAVE_SETENV */
 
 /* Define to 1 if you have the `sincos' function. */
-/* #undef _GLIBCXX_HAVE_SINCOS */
+#define _GLIBCXX_HAVE_SINCOS 1
 
 /* Define to 1 if you have the `sincosf' function. */
-/* #undef _GLIBCXX_HAVE_SINCOSF */
+#define _GLIBCXX_HAVE_SINCOSF 1
 
 /* Define to 1 if you have the `sincosl' function. */
-/* #undef _GLIBCXX_HAVE_SINCOSL */
+#define _GLIBCXX_HAVE_SINCOSL 1
 
 /* Define to 1 if you have the `sinf' function. */
 #define _GLIBCXX_HAVE_SINF 1
@@ -1193,7 +1193,7 @@ namespace std
 
 /* Define if C99 functions in <inttypes.h> should be imported in
    <tr1/cinttypes> in namespace std::tr1. */
-#define _GLIBCXX_USE_C99_INTTYPES_TR1 1
+/* #undef _GLIBCXX_USE_C99_INTTYPES_TR1 */
 
 /* Define if wchar_t C99 functions in <inttypes.h> should be imported in
    <tr1/cinttypes> in namespace std::tr1. */
