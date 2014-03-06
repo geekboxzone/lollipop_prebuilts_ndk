@@ -16,14 +16,19 @@
  ***
  ****************************************************************************
  ****************************************************************************/
-#ifndef __ASM_X86_BITSPERLONG_H
-#define __ASM_X86_BITSPERLONG_H
-#ifdef __x86_64__
-#define __BITS_PER_LONG 64
+#ifndef _UAPI_ASM_X86_VSYSCALL_H
+#define _UAPI_ASM_X86_VSYSCALL_H
+enum vsyscall_num {
+ __NR_vgettimeofday,
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
-#else
-#define __BITS_PER_LONG 32
-#endif
-#include <asm-generic/bitsperlong.h>
+ __NR_vtime,
+ __NR_vgetcpu,
+};
+#define VSYSCALL_START (-10UL << 20)
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define VSYSCALL_SIZE 1024
+#define VSYSCALL_END (-2UL << 20)
+#define VSYSCALL_MAPPED_PAGES 1
+#define VSYSCALL_ADDR(vsyscall_nr) (VSYSCALL_START+VSYSCALL_SIZE*(vsyscall_nr))
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #endif
