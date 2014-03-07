@@ -577,9 +577,29 @@ typedef struct {
 } Elf64_Rela;
 
 /* r_info utility macros */
+#if defined(__mips__)
+#if defined(__MIPSEL__)
+#define ELF64_R_SYM(info)	(((info) >> 0) & 0xffffffff)
+#define ELF64_R_SSYM(info)	(((info) >> 32) & 0xff)
+#define ELF64_R_TYPE3(info)	(((info) >> 40) & 0xff)
+#define ELF64_R_TYPE2(info)	(((info) >> 48) & 0xff)
+#define ELF64_R_TYPE(info)	(((info) >> 56) & 0xff)
+#define ELF64_R_INFO(sym,ssym,type,type2,type3)	\
+        (((type) << 56) + ((type2) << 48) + ((type3) << 40) + ((ssym) << 32) + (sym))
+#else
+#define ELF64_R_SYM(info)	(((info) >> 32) & 0xffffffff)
+#define ELF64_R_SSYM(info)	(((info) >> 24) & 0xff)
+#define ELF64_R_TYPE3(info)	(((info) >> 16) & 0xff)
+#define ELF64_R_TYPE2(info)	(((info) >> 8) & 0xff)
+#define ELF64_R_TYPE(info)	(((info) >> 0) & 0xff)
+#define ELF64_R_INFO(sym,ssym,type,type2,type3)	\
+        (((sym) << 32) + ((ssym) << 24) + ((type3) << 16) + ((type2) << 8) + (type))
+#endif
+#else
 #define ELF64_R_SYM(info)	((info) >> 32)
 #define ELF64_R_TYPE(info)	((info) & 0xffffffff)
 #define ELF64_R_INFO(sym,type)	(((sym) << 32) + (type))
+#endif
 
 /*
  * Move entries

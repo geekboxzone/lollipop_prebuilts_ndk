@@ -244,7 +244,6 @@ size_t strlen(const char *s) {
     return __strlen_chk(s, bos);
 }
 
-#if !defined(HAS_STRCHR)
 __BIONIC_FORTIFY_INLINE
 char* strchr(const char *s, int c) {
     size_t bos = __bos(s);
@@ -263,7 +262,6 @@ char* strchr(const char *s, int c) {
 
     return __strchr_chk(s, c, bos);
 }
-#endif
 
 extern char* __strrchr_chk(const char *, int, size_t);
 
