@@ -1193,7 +1193,7 @@ namespace std
 
 /* Define if C99 functions in <inttypes.h> should be imported in
    <tr1/cinttypes> in namespace std::tr1. */
-#define _GLIBCXX_USE_C99_INTTYPES_TR1 1
+/* #undef _GLIBCXX_USE_C99_INTTYPES_TR1 */
 
 /* Define if wchar_t C99 functions in <inttypes.h> should be imported in
    <tr1/cinttypes> in namespace std::tr1. */

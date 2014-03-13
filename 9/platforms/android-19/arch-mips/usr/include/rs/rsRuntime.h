@@ -109,10 +109,10 @@ void rsrMeasureText(Context *, const char *text,
 void rsrBindFont(Context *, Font *);
 void rsrFontColor(Context *, float r, float g, float b, float a);
 
+#endif
+
 void rsrAllocationIoSend(Context *, Allocation *);
 void rsrAllocationIoReceive(Context *, Allocation *);
-
-#endif
 
 //////////////////////////////////////////////////////////////////////////////
 // Time routines
@@ -128,8 +128,12 @@ int64_t rsrUptimeNanos(Context *);
 // Message routines
 //////////////////////////////////////////////////////////////////////////////
 
-uint32_t rsrToClient(Context *, int cmdID, void *data, int len);
-uint32_t rsrToClientBlocking(Context *, int cmdID, void *data, int len);
+// Keep existing routines to not break current GPU drivers.
+uint32_t __attribute((used)) rsrToClient(Context *, int cmdID, void *data, int len);
+uint32_t __attribute((used)) rsrToClientBlocking(Context *, int cmdID, void *data, int len);
+
+uint32_t rsrToClient(Context *, int cmdID, const void *data, int len);
+uint32_t rsrToClientBlocking(Context *, int cmdID, const void *data, int len);
 
 //////////////////////////////////////////////////////////////////////////////
 //
