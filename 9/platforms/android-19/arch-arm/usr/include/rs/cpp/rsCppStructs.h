@@ -90,10 +90,12 @@ class Sampler;
 
     /**
      * Initializes a RenderScript context. A context must be initialized before it can be used.
+     * @param[in] name Directory name to be used by this context. This should be equivalent to
+     * Context.getCacheDir().
      * @param[in] flags Optional flags for this context.
      * @return true on success
      */
-    bool init(uint32_t flags = 0);
+    bool init(std::string name, uint32_t flags = 0);
 
     /**
      * Sets the error handler function for this context. This error handler is
@@ -147,7 +149,7 @@ class Sampler;
     static bool usingNative;
     static bool initDispatch(int targetApi);
 
-    bool init(int targetApi, uint32_t flags);
+    bool init(std::string &name, int targetApi, uint32_t flags);
     static void * threadProc(void *);
 
     static bool gInitialized;
@@ -164,6 +166,8 @@ class Sampler;
     ErrorHandlerFunc_t mErrorFunc;
     MessageHandlerFunc_t mMessageFunc;
     bool mInit;
+
+    std::string mCacheDir;
 
     struct {
         sp<const Element> U8;
@@ -246,6 +250,7 @@ class Sampler;
     } mSamplers;
     friend class Sampler;
     friend class Element;
+    friend class ScriptC;
 };
 
  /**
@@ -260,7 +265,7 @@ public:
 
 protected:
     void *mID;
-    sp<RS> mRS;
+    RS* mRS;
     std::string mName;
 
     BaseObj(void *id, sp<RS> rs);
@@ -500,25 +505,25 @@ public:
      * Creates an Allocation for use by scripts with a given Type.
      * @param[in] rs Context to which the Allocation will belong
      * @param[in] type Type of the Allocation
-     * @param[in] mipsmapctrl desired mipmap behavior for the Allocation
+     * @param[in] mipmaps desired mipmap behavior for the Allocation
      * @param[in] usage usage for the Allocation
      * @return new Allocation
      */
     static sp<Allocation> createTyped(sp<RS> rs, sp<const Type> type,
-                                   RsAllocationMipmapControl mipsmapctrl, uint32_t usage);
+                                   RsAllocationMipmapControl mipmaps, uint32_t usage);
 
     /**
      * Creates an Allocation for use by scripts with a given Type and a backing pointer. For use
      * with RS_ALLOCATION_USAGE_SHARED.
      * @param[in] rs Context to which the Allocation will belong
      * @param[in] type Type of the Allocation
-     * @param[in] mipsmapctrl desired mipmap behavior for the Allocation
+     * @param[in] mipmaps desired mipmap behavior for the Allocation
      * @param[in] usage usage for the Allocation
      * @param[in] pointer existing backing store to use for this Allocation if possible
      * @return new Allocation
      */
     static sp<Allocation> createTyped(sp<RS> rs, sp<const Type> type,
-                                   RsAllocationMipmapControl mipsmapctrl, uint32_t usage, void * pointer);
+                                   RsAllocationMipmapControl mipmaps, uint32_t usage, void * pointer);
 
     /**
      * Creates an Allocation for use by scripts with a given Type with no mipmaps.
@@ -1031,7 +1036,7 @@ public:
      */
     class Builder {
     private:
-        sp<RS> mRS;
+        RS* mRS;
         std::vector<sp<Element> > mElements;
         std::vector<std::string> mElementNames;
         std::vector<uint32_t> mArraySizes;
@@ -1285,7 +1290,7 @@ public:
 
     class Builder {
     protected:
-        sp<RS> mRS;
+        RS* mRS;
         uint32_t mDimX;
         uint32_t mDimY;
         uint32_t mDimZ;
@@ -1917,7 +1922,7 @@ class ScriptIntrinsicYuvToRGB : public ScriptIntrinsic {
      *
      * @return Sampler
      */
-    sp<const Sampler> CLAMP_NEAREST(sp<RS> rs);
+    static sp<const Sampler> CLAMP_NEAREST(sp<RS> rs);
     /**
      * Retrieve a sampler with min and mag set to linear and wrap modes set to
      * clamp.
@@ -1926,7 +1931,7 @@ class ScriptIntrinsicYuvToRGB : public ScriptIntrinsic {
      *
      * @return Sampler
      */
-    sp<const Sampler> CLAMP_LINEAR(sp<RS> rs);
+    static sp<const Sampler> CLAMP_LINEAR(sp<RS> rs);
     /**
      * Retrieve a sampler with mag set to linear, min linear mipmap linear, and
      * wrap modes set to clamp.
@@ -1935,7 +1940,7 @@ class ScriptIntrinsicYuvToRGB : public ScriptIntrinsic {
      *
      * @return Sampler
      */
-    sp<const Sampler> CLAMP_LINEAR_MIP_LINEAR(sp<RS> rs);
+    static sp<const Sampler> CLAMP_LINEAR_MIP_LINEAR(sp<RS> rs);
     /**
      * Retrieve a sampler with min and mag set to nearest and wrap modes set to
      * wrap.
@@ -1944,7 +1949,7 @@ class ScriptIntrinsicYuvToRGB : public ScriptIntrinsic {
      *
      * @return Sampler
      */
-    sp<const Sampler> WRAP_NEAREST(sp<RS> rs);
+    static sp<const Sampler> WRAP_NEAREST(sp<RS> rs);
     /**
      * Retrieve a sampler with min and mag set to linear and wrap modes set to
      * wrap.
@@ -1953,7 +1958,7 @@ class ScriptIntrinsicYuvToRGB : public ScriptIntrinsic {
      *
      * @return Sampler
      */
-    sp<const Sampler> WRAP_LINEAR(sp<RS> rs);
+    static sp<const Sampler> WRAP_LINEAR(sp<RS> rs);
     /**
      * Retrieve a sampler with mag set to linear, min linear mipmap linear, and
      * wrap modes set to wrap.
@@ -1962,7 +1967,7 @@ class ScriptIntrinsicYuvToRGB : public ScriptIntrinsic {
      *
      * @return Sampler
      */
-    sp<const Sampler> WRAP_LINEAR_MIP_LINEAR(sp<RS> rs);
+    static sp<const Sampler> WRAP_LINEAR_MIP_LINEAR(sp<RS> rs);
     /**
      * Retrieve a sampler with min and mag set to nearest and wrap modes set to
      * mirrored repeat.
@@ -1971,7 +1976,7 @@ class ScriptIntrinsicYuvToRGB : public ScriptIntrinsic {
      *
      * @return Sampler
      */
-    sp<const Sampler> MIRRORED_REPEAT_NEAREST(sp<RS> rs);
+    static sp<const Sampler> MIRRORED_REPEAT_NEAREST(sp<RS> rs);
     /**
      * Retrieve a sampler with min and mag set to linear and wrap modes set to
      * mirrored repeat.
@@ -1980,7 +1985,7 @@ class ScriptIntrinsicYuvToRGB : public ScriptIntrinsic {
      *
      * @return Sampler
      */
-    sp<const Sampler> MIRRORED_REPEAT_LINEAR(sp<RS> rs);
+    static sp<const Sampler> MIRRORED_REPEAT_LINEAR(sp<RS> rs);
     /**
      * Retrieve a sampler with min and mag set to linear and wrap modes set to
      * mirrored repeat.
@@ -1989,7 +1994,7 @@ class ScriptIntrinsicYuvToRGB : public ScriptIntrinsic {
      *
      * @return Sampler
      */
-    sp<const Sampler> MIRRORED_REPEAT_LINEAR_MIP_LINEAR(sp<RS> rs);
+    static sp<const Sampler> MIRRORED_REPEAT_LINEAR_MIP_LINEAR(sp<RS> rs);
 
 };
 
