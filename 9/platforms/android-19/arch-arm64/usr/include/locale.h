@@ -51,11 +51,8 @@ enum {
 
 extern char* setlocale(int, const char*);
 
-#if !defined(__LP64__)
-// TODO: LP32 had these bogus declarations but LP64 should have a real struct lconv and localeconv(3).
 struct lconv { };
 struct lconv* localeconv(void);
-#endif
 
 __END_DECLS
 
