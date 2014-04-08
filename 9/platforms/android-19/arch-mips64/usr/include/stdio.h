@@ -253,10 +253,10 @@ int	 vprintf(const char * __restrict, __va_list)
 #ifndef __AUDIT__
 char* gets(char*) __warnattr("gets is very unsafe; consider using fgets");
 int sprintf(char* __restrict, const char* __restrict, ...)
-    __printflike(2, 3) __warnattr("sprintf is often misused; please use snprintf");
+    __printflike(2, 3); //__warnattr("sprintf is often misused; please use snprintf");
 char* tmpnam(char*) __warnattr("tmpnam possibly used unsafely; consider using mkstemp");
 int vsprintf(char* __restrict, const char* __restrict, __va_list)
-    __printflike(2, 0) __warnattr("vsprintf is often misused; please use vsnprintf");
+    __printflike(2, 0); //__warnattr("vsprintf is often misused; please use vsnprintf");
 #if __XPG_VISIBLE
 char* tempnam(const char*, const char*)
     __warnattr("tempnam possibly used unsafely; consider using mkstemp");
@@ -393,10 +393,10 @@ int vsprintf(char *dest, const char *format, __va_list ap)
 }
 
 #if defined(__clang__)
-#if !defined(WITH_SYNTAX_CHECK)
-#define __wrap_snprintf(dest, size, ...) __builtin___snprintf_chk(dest, size, 0, __bos(dest), __VA_ARGS__)
-#define snprintf(...) __wrap_snprintf(__VA_ARGS__)
-#endif
+  #if !defined(snprintf)
+    #define __wrap_snprintf(dest, size, ...) __builtin___snprintf_chk(dest, size, 0, __bos(dest), __VA_ARGS__)
+    #define snprintf(...) __wrap_snprintf(__VA_ARGS__)
+  #endif
 #else
 __BIONIC_FORTIFY_INLINE
 __printflike(3, 4)
@@ -408,10 +408,10 @@ int snprintf(char *dest, size_t size, const char *format, ...)
 #endif
 
 #if defined(__clang__)
-#if !defined(WITH_SYNTAX_CHECK)
-#define __wrap_sprintf(dest, ...) __builtin___sprintf_chk(dest, 0, __bos(dest), __VA_ARGS__)
-#define sprintf(...) __wrap_sprintf(__VA_ARGS__)
-#endif
+  #if !defined(sprintf)
+    #define __wrap_sprintf(dest, ...) __builtin___sprintf_chk(dest, 0, __bos(dest), __VA_ARGS__)
+    #define sprintf(...) __wrap_sprintf(__VA_ARGS__)
+  #endif
 #else
 __BIONIC_FORTIFY_INLINE
 __printflike(2, 3)
