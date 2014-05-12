@@ -31,7 +31,7 @@
 #define _GLIBCXX_CXX_CONFIG_H 1
 
 // The current version of the C++ library in compressed ISO date format.
-#define __GLIBCXX__ 20140324
+#define __GLIBCXX__ 20140422
 
 // Macros for various attributes.
 //   _GLIBCXX_PURE
@@ -474,13 +474,13 @@ namespace std
 #define _GLIBCXX_HAVE_ACOSF 1
 
 /* Define to 1 if you have the `acosl' function. */
-/* #undef _GLIBCXX_HAVE_ACOSL */
+#define _GLIBCXX_HAVE_ACOSL 1
 
 /* Define to 1 if you have the `asinf' function. */
 #define _GLIBCXX_HAVE_ASINF 1
 
 /* Define to 1 if you have the `asinl' function. */
-/* #undef _GLIBCXX_HAVE_ASINL */
+#define _GLIBCXX_HAVE_ASINL 1
 
 /* Define to 1 if the target assembler supports .symver directive. */
 #define _GLIBCXX_HAVE_AS_SYMVER_DIRECTIVE 1
@@ -495,7 +495,7 @@ namespace std
 #define _GLIBCXX_HAVE_ATANF 1
 
 /* Define to 1 if you have the `atanl' function. */
-/* #undef _GLIBCXX_HAVE_ATANL */
+#define _GLIBCXX_HAVE_ATANL 1
 
 /* Define to 1 if you have the `at_quick_exit' function. */
 /* #undef _GLIBCXX_HAVE_AT_QUICK_EXIT */
@@ -519,10 +519,10 @@ namespace std
 #define _GLIBCXX_HAVE_COSHF 1
 
 /* Define to 1 if you have the `coshl' function. */
-/* #undef _GLIBCXX_HAVE_COSHL */
+#define _GLIBCXX_HAVE_COSHL 1
 
 /* Define to 1 if you have the `cosl' function. */
-/* #undef _GLIBCXX_HAVE_COSL */
+#define _GLIBCXX_HAVE_COSL 1
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #define _GLIBCXX_HAVE_DLFCN_H 1
@@ -693,7 +693,7 @@ namespace std
 /* #undef _GLIBCXX_HAVE_ISNANL */
 
 /* Defined if iswblank exists. */
-/* #undef _GLIBCXX_HAVE_ISWBLANK */
+#define _GLIBCXX_HAVE_ISWBLANK 1
 
 /* Define if LC_MESSAGES is available in <locale.h>. */
 #define _GLIBCXX_HAVE_LC_MESSAGES 1
@@ -732,13 +732,13 @@ namespace std
 #define _GLIBCXX_HAVE_LOG10F 1
 
 /* Define to 1 if you have the `log10l' function. */
-/* #undef _GLIBCXX_HAVE_LOG10L */
+#define _GLIBCXX_HAVE_LOG10L 1
 
 /* Define to 1 if you have the `logf' function. */
 #define _GLIBCXX_HAVE_LOGF 1
 
 /* Define to 1 if you have the `logl' function. */
-/* #undef _GLIBCXX_HAVE_LOGL */
+#define _GLIBCXX_HAVE_LOGL 1
 
 /* Define to 1 if you have the <machine/endian.h> header file. */
 #define _GLIBCXX_HAVE_MACHINE_ENDIAN_H 1
@@ -771,7 +771,7 @@ namespace std
 #define _GLIBCXX_HAVE_POWF 1
 
 /* Define to 1 if you have the `powl' function. */
-/* #undef _GLIBCXX_HAVE_POWL */
+#define _GLIBCXX_HAVE_POWL 1
 
 /* Define to 1 if you have the `qfpclass' function. */
 /* #undef _GLIBCXX_HAVE_QFPCLASS */
@@ -783,13 +783,13 @@ namespace std
 /* #undef _GLIBCXX_HAVE_SETENV */
 
 /* Define to 1 if you have the `sincos' function. */
-/* #undef _GLIBCXX_HAVE_SINCOS */
+#define _GLIBCXX_HAVE_SINCOS 1
 
 /* Define to 1 if you have the `sincosf' function. */
-/* #undef _GLIBCXX_HAVE_SINCOSF */
+#define _GLIBCXX_HAVE_SINCOSF 1
 
 /* Define to 1 if you have the `sincosl' function. */
-/* #undef _GLIBCXX_HAVE_SINCOSL */
+#define _GLIBCXX_HAVE_SINCOSL 1
 
 /* Define to 1 if you have the `sinf' function. */
 #define _GLIBCXX_HAVE_SINF 1
@@ -798,10 +798,10 @@ namespace std
 #define _GLIBCXX_HAVE_SINHF 1
 
 /* Define to 1 if you have the `sinhl' function. */
-/* #undef _GLIBCXX_HAVE_SINHL */
+#define _GLIBCXX_HAVE_SINHL 1
 
 /* Define to 1 if you have the `sinl' function. */
-/* #undef _GLIBCXX_HAVE_SINL */
+#define _GLIBCXX_HAVE_SINL 1
 
 /* Defined if sleep exists. */
 /* #undef _GLIBCXX_HAVE_SLEEP */
@@ -904,10 +904,10 @@ namespace std
 #define _GLIBCXX_HAVE_TANHF 1
 
 /* Define to 1 if you have the `tanhl' function. */
-/* #undef _GLIBCXX_HAVE_TANHL */
+#define _GLIBCXX_HAVE_TANHL 1
 
 /* Define to 1 if you have the `tanl' function. */
-/* #undef _GLIBCXX_HAVE_TANL */
+#define _GLIBCXX_HAVE_TANL 1
 
 /* Define to 1 if you have the <tgmath.h> header file. */
 /* #undef _GLIBCXX_HAVE_TGMATH_H */
@@ -922,19 +922,19 @@ namespace std
 /* #undef _GLIBCXX_HAVE_USLEEP */
 
 /* Defined if vfwscanf exists. */
-/* #undef _GLIBCXX_HAVE_VFWSCANF */
+#define _GLIBCXX_HAVE_VFWSCANF 1
 
 /* Defined if vswscanf exists. */
-/* #undef _GLIBCXX_HAVE_VSWSCANF */
+#define _GLIBCXX_HAVE_VSWSCANF 1
 
 /* Defined if vwscanf exists. */
-/* #undef _GLIBCXX_HAVE_VWSCANF */
+#define _GLIBCXX_HAVE_VWSCANF 1
 
 /* Define to 1 if you have the <wchar.h> header file. */
 #define _GLIBCXX_HAVE_WCHAR_H 1
 
 /* Defined if wcstof exists. */
-/* #undef _GLIBCXX_HAVE_WCSTOF */
+#define _GLIBCXX_HAVE_WCSTOF 1
 
 /* Define to 1 if you have the <wctype.h> header file. */
 #define _GLIBCXX_HAVE_WCTYPE_H 1
@@ -1265,7 +1265,7 @@ namespace std
 
 /* Define if wchar_t C99 functions in <inttypes.h> should be imported in
    <tr1/cinttypes> in namespace std::tr1. */
-/* #undef _GLIBCXX_USE_C99_INTTYPES_WCHAR_T_TR1 */
+#define _GLIBCXX_USE_C99_INTTYPES_WCHAR_T_TR1 1
 
 /* Define if C99 functions or macros in <math.h> should be imported in <cmath>
    in namespace std. */
@@ -1273,7 +1273,7 @@ namespace std
 
 /* Define if C99 functions or macros in <math.h> should be imported in
    <tr1/cmath> in namespace std::tr1. */
-/* #undef _GLIBCXX_USE_C99_MATH_TR1 */
+#define _GLIBCXX_USE_C99_MATH_TR1 1
 
 /* Define if C99 types in <stdint.h> should be imported in <tr1/cstdint> in
    namespace std::tr1. */
