@@ -461,7 +461,7 @@ using namespace _LIBCPP_NAMESPACE __attribute__((__strong__));
 #define __gxx__cxx_lambdas                        !defined(_LIBCPP_HAS_NO_LAMBDAS)
 #define __gxx__cxx_noexcept                       0  // Not sure, doesn't matter.
 #define __gxx__cxx_nullptr                        !defined(_LIBCPP_HAS_NO_NULLPTR)
-#define __gxx__cxx_reference_qualified_functions  (_GNUC_VER >= 408)  // Since 4.8.1
+#define __gxx__cxx_reference_qualified_functions  (_GNUC_VER > 408)  // Since 4.8.1, but platform target gcc4.8 has not been upgraded yet
 #ifdef _LIBCPP_NO_RTTI
 #define __gxx__cxx_rtti                           0
 #else
