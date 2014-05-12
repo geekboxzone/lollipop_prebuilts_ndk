@@ -1,4 +1,5 @@
-/*	$OpenBSD: ieee.h,v 1.4 2010/01/23 19:11:21 miod Exp $	*/
+/*	$OpenBSD: ieee.h,v 1.4 2011/11/08 17:06:51 deraadt Exp $	*/
+/*	$NetBSD: ieee.h,v 1.2 2001/02/21 17:43:50 bjh21 Exp $	*/
 
 /*
  * Copyright (c) 1992, 1993
@@ -21,7 +22,11 @@
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
- * 3. Neither the name of the University nor the names of its contributors
+ * 3. All advertising materials mentioning features or use of this software
+ *    must display the following acknowledgement:
+ *	This product includes software developed by the University of
+ *	California, Berkeley and its contributors.
+ * 4. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
  *
@@ -40,130 +45,74 @@
  *	@(#)ieee.h	8.1 (Berkeley) 6/11/93
  */
 
-/*
- * ieee.h defines the machine-dependent layout of the machine's IEEE
- * floating point.  It does *not* define (yet?) any of the rounding
- * mode bits, exceptions, and so forth.
- */
+#ifndef _MACHINE_IEEE_H_
+#define _MACHINE_IEEE_H_
 
-/*
- * Define the number of bits in each fraction and exponent.
- *
- *		     k	         k+1
- * Note that  1.0 x 2  == 0.1 x 2      and that denorms are represented
- *
- *					  (-exp_bias+1)
- * as fractions that look like 0.fffff x 2             .  This means that
- *
- *			 -126
- * the number 0.10000 x 2    , for instance, is the same as the normalized
- *
- *		-127			   -128
- * float 1.0 x 2    .  Thus, to represent 2    , we need one leading zero
- *
- *				  -129
- * in the fraction; to represent 2    , we need two, and so on.  This
- *
- *						     (-exp_bias-fracbits+1)
- * implies that the smallest denormalized number is 2
- *
- * for whichever format we are talking about: for single precision, for
- *
- *						-126		-149
- * instance, we get .00000000000000000000001 x 2    , or 1.0 x 2    , and
- *
- * -149 == -127 - 23 + 1.
- */
-#define	SNG_EXPBITS	8
-#define	SNG_FRACBITS	23
+#include <sys/types.h>
 
-#define	DBL_EXPBITS	11
-#define	DBL_FRACHBITS	20
-#define	DBL_FRACLBITS	32
-#define	DBL_FRACBITS	52
+__BEGIN_DECLS
 
-#define	EXT_EXPBITS	15
-#define	EXT_FRACHBITS	16
-#define	EXT_FRACHMBITS	32
-#define	EXT_FRACLMBITS	32
-#define	EXT_FRACLBITS	32
-#define	EXT_FRACBITS	112
+#define SNG_EXPBITS	8
+#define SNG_FRACBITS	23
 
-#define	EXT_IMPLICIT_NBIT
-
-#define	EXT_TO_ARRAY32(p, a) do {		\
-	(a)[0] = (uint32_t)(p)->ext_fracl;	\
-	(a)[1] = (uint32_t)(p)->ext_fraclm;	\
-	(a)[2] = (uint32_t)(p)->ext_frachm;	\
-	(a)[3] = (uint32_t)(p)->ext_frach;	\
-} while(0)
+#define SNG_EXP_INFNAN	255
+#define SNG_EXP_BIAS	127
 
 struct ieee_single {
-#ifdef __MIPSEB__
-	u_int	sng_sign:1;
-	u_int	sng_exp:8;
-	u_int	sng_frac:23;
-#else
-	u_int	sng_frac:23;
-	u_int	sng_exp:8;
-	u_int	sng_sign:1;
-#endif
+  unsigned sng_frac:23;
+  unsigned sng_exp:8;
+  unsigned sng_sign:1;
 };
+
+#define DBL_EXPBITS	11
+#define DBL_FRACHBITS	20
+#define DBL_FRACLBITS	32
+#define DBL_FRACBITS	52
+
+#define DBL_EXP_INFNAN	2047
+#define DBL_EXP_BIAS	1023
 
 struct ieee_double {
-#ifdef __MIPSEB__
-	u_int	dbl_sign:1;
-	u_int	dbl_exp:11;
-	u_int	dbl_frach:20;
-	u_int	dbl_fracl;
-#else
-	u_int	dbl_fracl;
-	u_int	dbl_frach:20;
-	u_int	dbl_exp:11;
-	u_int	dbl_sign:1;
-#endif
+  unsigned dbl_fracl;
+  unsigned dbl_frach:20;
+  unsigned dbl_exp:11;
+  unsigned dbl_sign:1;
 };
+
+#if __LP64__
+
+/* 64-bit Android uses ld128 long doubles. */
+
+#define EXT_EXPBITS	15
+#define EXT_FRACHBITS	16
+#define EXT_FRACHMBITS	32
+#define EXT_FRACLMBITS	32
+#define EXT_FRACLBITS	32
+#define EXT_FRACBITS	112
+
+#define EXT_EXP_INFNAN	32767
+#define EXT_EXP_BIAS	16383
+
+#define EXT_IMPLICIT_NBIT
+
+#define EXT_TO_ARRAY32(p, a) do { \
+  (a)[0] = (uint32_t)(p)->ext_fracl; \
+  (a)[1] = (uint32_t)(p)->ext_fraclm; \
+  (a)[2] = (uint32_t)(p)->ext_frachm; \
+  (a)[3] = (uint32_t)(p)->ext_frach; \
+} while(0)
 
 struct ieee_ext {
-#ifdef __MIPSEB__
-	u_int	ext_sign:1;
-	u_int	ext_exp:15;
-	u_int	ext_frach:16;
-	u_int	ext_frachm;
-	u_int	ext_fraclm;
-	u_int	ext_fracl;
-#else
-	u_int	ext_fracl;
-	u_int	ext_fraclm;
-	u_int	ext_frachm;
-	u_int	ext_frach:16;
-	u_int	ext_exp:15;
-	u_int	ext_sign:1;
-#endif
+  unsigned ext_fracl;
+  unsigned ext_fraclm;
+  unsigned ext_frachm;
+  unsigned ext_frach:16;
+  unsigned ext_exp:15;
+  unsigned ext_sign:1;
 };
 
-/*
- * Floats whose exponent is in [1..INFNAN) (of whatever type) are
- * `normal'.  Floats whose exponent is INFNAN are either Inf or NaN.
- * Floats whose exponent is zero are either zero (iff all fraction
- * bits are zero) or subnormal values.
- *
- * A NaN is a `signalling NaN' if its QUIETNAN bit is clear in its
- * high fraction; if the bit is set, it is a `quiet NaN'.
- */
-#define	SNG_EXP_INFNAN	255
-#define	DBL_EXP_INFNAN	2047
-#define	EXT_EXP_INFNAN	32767
-
-#if 0
-#define	SNG_QUIETNAN	(1 << 22)
-#define	DBL_QUIETNAN	(1 << 19)
-#define	EXT_QUIETNAN	(1 << 15)
 #endif
 
-/*
- * Exponent biases.
- */
-#define	SNG_EXP_BIAS	127
-#define	DBL_EXP_BIAS	1023
-#define	EXT_EXP_BIAS	16383
+__END_DECLS
+
+#endif /* _MACHINE_IEEE_H_ */

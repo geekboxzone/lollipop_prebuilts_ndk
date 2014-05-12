@@ -43,8 +43,7 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
   // To abstract locking primitives across all thread policies, use:
   // __exchange_and_add_dispatch
   // __atomic_add_dispatch
-#if defined(_GLIBCXX_ATOMIC_BUILTINS) && (!defined(__clang__) || defined(__i386__))
-  // NOTE: clang arm/mips can't compile the following two library calls yet.
+#ifdef _GLIBCXX_ATOMIC_BUILTINS
   static inline _Atomic_word 
   __exchange_and_add(volatile _Atomic_word* __mem, int __val)
   { return __atomic_fetch_add(__mem, __val, __ATOMIC_ACQ_REL); }
