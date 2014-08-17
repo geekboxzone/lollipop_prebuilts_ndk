@@ -69,11 +69,15 @@ extern unsigned long long strtoull(const char *, char **, int);
 
 extern int posix_memalign(void **memptr, size_t alignment, size_t size);
 
-extern double atof(const char*);
+extern double atof(const char*) __NDK_FPABI__;
 
-extern double strtod(const char*, char**) __LIBC_ABI_PUBLIC__;
-extern float strtof(const char*, char**) __LIBC_ABI_PUBLIC__;
-extern long double strtold(const char*, char**) __LIBC_ABI_PUBLIC__;
+extern double strtod(const char*, char**) __LIBC_ABI_PUBLIC__ __NDK_FPABI__;
+extern float strtof(const char*, char**) __LIBC_ABI_PUBLIC__ __NDK_FPABI__;
+extern long double strtold(const char*, char**) __LIBC_ABI_PUBLIC__ __NDK_FPABI__;
+
+extern long double strtold_l(const char *, char **, locale_t) __LIBC_ABI_PUBLIC__ __NDK_FPABI__;
+extern long long strtoll_l(const char *, char **, size_t, locale_t) __LIBC_ABI_PUBLIC__;
+extern unsigned long long strtoull_l(const char *, char **, size_t, locale_t) __LIBC_ABI_PUBLIC__;
 
 extern int atoi(const char*) __purefunc;
 extern long atol(const char*) __purefunc;
@@ -97,8 +101,8 @@ extern long mrand48(void);
 extern long nrand48(unsigned short *);
 extern long lrand48(void);
 extern unsigned short *seed48(unsigned short*);
-extern double erand48(unsigned short xsubi[3]);
-extern double drand48(void);
+extern double erand48(unsigned short xsubi[3]) __NDK_FPABI__;
+extern double drand48(void) __NDK_FPABI__;
 extern void srand48(long);
 
 unsigned int arc4random(void);
@@ -106,12 +110,6 @@ unsigned int arc4random_uniform(unsigned int);
 void arc4random_buf(void*, size_t);
 
 #define RAND_MAX 0x7fffffff
-
-/* Work around x86/x86-64 libvpx build breakage caused by postproc_x86.c. */
-#if (defined(__i386__) || defined(__x86_64__)) && defined(rand)
-#undef rand
-#define __rand lrand48
-#endif
 
 int rand(void);
 int rand_r(unsigned int*);
@@ -122,18 +120,12 @@ long random(void);
 char* setstate(char*);
 void srandom(unsigned int);
 
-/* Basic PTY functions.  These only work if devpts is mounted! */
-
-extern int    unlockpt(int);
-extern char*  ptsname(int);
-extern int    ptsname_r(int, char*, size_t);
-extern int    getpt(void);
-
-static __inline__ int grantpt(int __fd __attribute((unused)))
-{
-  (void)__fd;
-  return 0;     /* devpts does this all for us! */
-}
+int getpt(void);
+int grantpt(int);
+int posix_openpt(int);
+char* ptsname(int) __warnattr("ptsname is not thread-safe; use ptsname_r instead");
+int ptsname_r(int, char*, size_t);
+int unlockpt(int);
 
 typedef struct {
     int  quot;
@@ -169,11 +161,8 @@ extern int      mbtowc(wchar_t *, const char *, size_t);
 extern int	wctomb(char *, wchar_t);
 extern size_t	wcstombs(char *, const wchar_t *, size_t);
 
-#define MB_CUR_MAX 4U
-
-#if 0 /* MISSING FROM BIONIC */
-extern int on_exit(void (*)(int, void *), void *);
-#endif /* MISSING */
+extern size_t __ctype_get_mb_cur_max(void);
+#define MB_CUR_MAX __ctype_get_mb_cur_max()
 
 __END_DECLS
 
